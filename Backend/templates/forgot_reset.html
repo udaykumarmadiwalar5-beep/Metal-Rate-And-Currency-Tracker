@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Reset Password</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial;
+            background: #0b2545;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            width: 380px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 24px;
+            color: #0b2545;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 14px;
+        }
+
+        .input-group label {
+            font-size: 13px;
+            color: #444;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: #ffb703;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 40px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+            font-size: 16px;
+        }
+
+        .input-group input.error {
+            border-color: #e63946;
+        }
+
+        .err-msg {
+            font-size: 11.5px;
+            color: #e63946;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .err-msg.show {
+            display: block;
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            background: #ffb703;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #000;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #e5a800;
+        }
+
+        button:disabled {
+            background: #ffd75e;
+            cursor: not-allowed;
+        }
+
+        p {
+            margin-top: 18px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        p a {
+            color: #0b2545;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error toast */
+        .toast {
+            display: none;
+            background: #fdecea;
+            border: 1px solid #e63946;
+            color: #e63946;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        /* Success toast */
+        .toast-success {
+            display: none;
+            background: #e7f6ed;
+            border: 1px solid #28a745;
+            color: #28a745;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .toast-success.show {
+            display: block;
+        }
+
+        .requirements {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 12px;
+            margin-top: -10px;
+            font-size: 12px;
+            text-align: left;
+            display: none;
+        }
+
+        .requirements.show {
+            display: block;
+        }
+
+        .requirement-item {
+            margin: 6px 0;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .requirement-check {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .requirement-check.unchecked {
+            background: #ccc;
+        }
+
+        .requirement-check.checked {
+            background: #28a745;
+        }
+
+        .requirement-text.unchecked {
+            color: #666;
+        }
+
+        .requirement-text.checked {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Reset Password</h2>
+
+        <div class="toast" id="toast">❌ Error updating password.</div>
+        <div class="toast-success" id="toast-success">✅ Password updated successfully!</div>
+
+        <form id="forgotForm" autocomplete="off" novalidate>
+            <div class="input-group">
+                <label>Email Address</label>
+                <div class="password-wrapper">
+                    <input type="email" id="email" placeholder="Enter your registered email" autocomplete="new-password" required>
+                    <span class="toggle-password" onclick="togglePassword('email', this)"></span>
+                </div>
+                <div class="err-msg" id="err-email"></div>
+            </div>
+
+            <div class="input-group">
+                <label>New Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="new_password" placeholder="New Password" autocomplete="new-password" required>
+                    <span class="toggle-password" onclick="togglePassword('new_password', this)"></span>
+                </div>
+                <div class="err-msg" id="err-new_password"></div>
+            </div>
+            <div id="passwordRequirements" class="requirements">
+                <strong>Password Requirements:</strong>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-length">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-length">Minimum 8 characters</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-uppercase">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-uppercase">1 Uppercase letter (A-Z)</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-lowercase">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-lowercase">1 Lowercase letter (a-z)</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-number">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-number">1 Number (0-9)</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-special">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-special">1 Special character (!@#$%^&*)</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="confirm_password" placeholder="Confirm Password" autocomplete="new-password" required>
+                    <span class="toggle-password" onclick="togglePassword('confirm_password', this)"></span>
+                </div>
+                <div class="err-msg" id="err-confirm_password"></div>
+            </div>
+
+            <button type="submit" id="resetBtn">Update Password</button>
+        </form>
+
+        <p><a href="login.html">Back to Login</a></p>
+    </div>
+
+    <script>
+        const eyeOn = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+        const eyeOff = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerHTML = eyeOn;
+            } else {
+                input.type = 'password';
+                icon.innerHTML = eyeOff;
+            }
+        }
+
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            const match = icon.getAttribute('onclick').match(/'([^']+)'/);
+            if (match) {
+                const input = document.getElementById(match[1]);
+                if (input) icon.innerHTML = input.type === 'password' ? eyeOff : eyeOn;
+            }
+        });
+
+        function showErr(id, msg) {
+            const el = document.getElementById('err-' + id);
+            const input = document.getElementById(id);
+            el.textContent = msg;
+            el.classList.add('show');
+            input.classList.add('error');
+        }
+
+        function clearErr(id) {
+            const el = document.getElementById('err-' + id);
+            const input = document.getElementById(id);
+            if (el) el.classList.remove('show');
+            if (input) input.classList.remove('error');
+        }
+
+        function validateEmail() {
+            const val = document.getElementById('email').value.trim();
+            if (val === '') {
+                showErr('email', 'Email is required.');
+                return false;
+            }
+            let emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+            if (!val.match(emailPattern)) {
+                showErr('email', 'Invalid lowercase email address.');
+                return false;
+            }
+            if (val.length > 100) {
+                showErr('email', 'Email too long.');
+                return false;
+            }
+            clearErr('email');
+            return true;
+        }
+
+        function validatePasswords() {
+            const p1 = document.getElementById('new_password').value.trim();
+            const p2 = document.getElementById('confirm_password').value.trim();
+            let valid = true;
+
+            // ═══ Strong Password Validation ═══
+            const passwordValidation = validatePasswordStrength(p1);
+            if (!isAllValid(passwordValidation)) {
+                let missing = [];
+                if (!passwordValidation.length) missing.push("8+ characters");
+                if (!passwordValidation.uppercase) missing.push("1 uppercase letter");
+                if (!passwordValidation.lowercase) missing.push("1 lowercase letter");
+                if (!passwordValidation.number) missing.push("1 number");
+                if (!passwordValidation.special) missing.push("1 special character");
+                showErr('new_password', 'Password must have: ' + missing.join(", "));
+                valid = false;
+            } else {
+                clearErr('new_password');
+            }
+
+            // ═══ Confirm Password Match ═══
+            if (p1 !== p2 && p2.length > 0) {
+                showErr('confirm_password', 'Passwords do not match.');
+                valid = false;
+            } else if (valid) {
+                clearErr('confirm_password');
+            }
+
+            return valid;
+        }
+
+        // ═══════════════════════════════════════════════════════
+        //  PASSWORD STRENGTH VALIDATION
+        // ═══════════════════════════════════════════════════════
+
+        function validatePasswordStrength(password) {
+            return {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+            };
+        }
+
+        function updatePasswordRequirementUI(validation) {
+            const requirements = Object.keys(validation);
+            requirements.forEach(req => {
+                const checkElement = document.getElementById(`check-password-${req}`);
+                const textElement = document.getElementById(`text-password-${req}`);
+                if (checkElement && textElement) {
+                    if (validation[req]) {
+                        checkElement.textContent = '✓';
+                        checkElement.className = 'requirement-check checked';
+                        textElement.className = 'requirement-text checked';
+                    } else {
+                        checkElement.textContent = '✗';
+                        checkElement.className = 'requirement-check unchecked';
+                        textElement.className = 'requirement-text unchecked';
+                    }
+                }
+            });
+        }
+
+        function isAllValid(validation) {
+            return Object.values(validation).every(v => v === true);
+        }
+
+        document.getElementById('new_password').addEventListener('input', function() {
+            const requirements = validatePasswordStrength(this.value);
+            updatePasswordRequirementUI(requirements);
+            if (this.value.length > 0) {
+                document.getElementById('passwordRequirements').classList.add('show');
+            }
+        });
+
+        document.getElementById('new_password').addEventListener('blur', function() {
+            if (this.value.length === 0) {
+                document.getElementById('passwordRequirements').classList.remove('show');
+            }
+            validatePasswords();
+        });
+
+        document.getElementById('email').addEventListener('blur', validateEmail);
+        document.getElementById('confirm_password').addEventListener('input', validatePasswords);
+
+        document.getElementById('forgotForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            document.getElementById('toast').classList.remove('show');
+            document.getElementById('toast-success').classList.remove('show');
+
+            const v1 = validateEmail();
+            const v2 = validatePasswords();
+
+            if (v1 && v2) {
+                const btn = document.getElementById('resetBtn');
+                btn.textContent = 'Updating...';
+                btn.disabled = true;
+
+                fetch('/api/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value.trim(),
+                        password: document.getElementById('new_password').value.trim()
+                    })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('toast-success').classList.add('show');
+                            setTimeout(() => {
+                                window.location.href = data.redirect_url || '/login';
+                            }, 2000);
+                        } else {
+                            document.getElementById('toast').textContent = "❌ " + (data.error || "Reset failed");
+                            document.getElementById('toast').classList.add('show');
+                            btn.textContent = 'Update Password';
+                            btn.disabled = false;
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        document.getElementById('toast').textContent = "❌ Network error. Please try again.";
+                        document.getElementById('toast').classList.add('show');
+                        btn.textContent = 'Update Password';
+                        btn.disabled = false;
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+﻿<div class="panel" id="panel-preferences">
+  <div class="pref-grid">
+    <div class="pref-section">
+      <div class="pref-section-title">🎨 Display</div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Currency</div>
+          <div class="pref-desc">Default currency for prices</div>
+        </div>
+        <select class="pref-select" id="prefCurrency" onchange="applyPrefLive()">
+          <option value="INR">₹ INR</option>
+          <option value="USD">$ USD</option>
+          <option value="EUR">€ EUR</option>
+          <option value="GBP">£ GBP</option>
+        </select>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Weight Unit</div>
+          <div class="pref-desc">Metal weight display</div>
+        </div>
+        <select class="pref-select" id="prefUnit" onchange="applyPrefLive()">
+          <option value="10g">Per 10 grams</option>
+          <option value="gram">Per gram</option>
+          <option value="oz">Per troy oz</option>
+          <option value="kg">Per kg</option>
+        </select>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Accent Color</div>
+          <div class="pref-desc">Dashboard highlight color</div>
+        </div>
+        <div class="color-swatches" id="colorSwatches">
+          <div class="cswatch sel" style="background:#ffb703" onclick="setAccent('#ffb703',this)" title="Gold"></div>
+          <div class="cswatch" style="background:#3b82f6" onclick="setAccent('#3b82f6',this)" title="Blue"></div>
+          <div class="cswatch" style="background:#22c55e" onclick="setAccent('#22c55e',this)" title="Green"></div>
+          <div class="cswatch" style="background:#a78bfa" onclick="setAccent('#a78bfa',this)" title="Purple"></div>
+          <div class="cswatch" style="background:#f43f5e" onclick="setAccent('#f43f5e',this)" title="Rose"></div>
+        </div>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Dark Mode</div>
+          <div class="pref-desc">Toggle dashboard theme</div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" id="prefDarkMode" onchange="applyPrefLive()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Show % Change</div>
+          <div class="pref-desc">Price change badges on cards</div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" id="prefShowPct" checked onchange="applyPrefLive()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="pref-preview">
+        <div class="preview-label">Live Preview</div>
+        <div class="preview-card" id="livePreviewCard">
+          <div class="preview-metal" id="prevUnit">Gold · per 10g</div>
+          <div class="preview-price" id="prevPrice">₹6,84,200</div>
+          <div class="preview-badge" id="prevBadge">▲ +1.32%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pref-section">
+      <div class="pref-section-title">🔄 Data & Refresh</div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Auto-Refresh</div>
+          <div class="pref-desc">Update prices automatically</div>
+        </div>
+        <label class="toggle-switch"><input type="checkbox" id="prefAutoRefresh" checked onchange="toggleAutoRefresh()"><span class="toggle-slider"></span></label>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Refresh Interval</div>
+          <div class="pref-desc" id="refreshStatus">Refreshing every 60s</div>
+        </div>
+        <select class="pref-select" id="prefInterval" onchange="toggleAutoRefresh()">
+          <option value="30">30 seconds</option>
+          <option value="60" selected>1 minute</option>
+          <option value="300">5 minutes</option>
+          <option value="600">10 minutes</option>
+        </select>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Default Chart Type</div>
+          <div class="pref-desc">Chart style on load</div>
+        </div>
+        <select class="pref-select" id="prefChartType">
+          <option value="line" selected>Line Chart</option>
+          <option value="candlestick">Candlestick</option>
+        </select>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Default Metal</div>
+          <div class="pref-desc">Metal shown on chart load</div>
+        </div>
+        <select class="pref-select" id="prefMetal">
+          <option value="gold" selected>Gold</option>
+          <option value="silver">Silver</option>
+          <option value="platinum">Platinum</option>
+        </select>
+      </div>
+      <div class="pref-row">
+        <div>
+          <div class="pref-label">Default Time Range</div>
+          <div class="pref-desc">Chart range on load</div>
+        </div>
+        <select class="pref-select" id="prefRange">
+          <option value="1d">1 Day</option>
+          <option value="1m">1 Month</option>
+          <option value="3m" selected>3 Months</option>
+          <option value="6m">6 Months</option>
+          <option value="1y">1 Year</option>
+          <option value="3y">3 Years</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="pref-section">
+      <div class="pref-section-title">💾 Save Changes</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6">All display changes apply instantly as a live preview. Click Save to apply chart defaults for this session only.</p>
+      <button class="save-btn" onclick="saveAllPrefs()">💾 Save Preferences</button>
+      <button class="reset-btn" style="margin-top:10px" onclick="resetPrefs()">↺ Reset to Defaults</button>
+      <div class="save-confirm" id="saveConfirm" style="margin-top:12px">✅ Preferences saved successfully!</div>
+    </div>
+  </div>
+</div>
+ 

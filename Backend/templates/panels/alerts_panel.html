@@ -1,0 +1,121 @@
+﻿<div class="panel" id="panel-alerts">
+  <!-- Visibility Check -->
+  <div style="background:rgba(255,193,7,0.1); color:#856404; padding:10px; border-radius:8px; margin-bottom:15px; font-weight:bold; border:1px solid #ffeeba; display:block !important;">✅ Alerts Panel Loaded</div>
+  <div class="alerts-top">
+    <div class="alert-form-card">
+      <h2 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px;">🔔 Create New
+        Alert</h2>
+      <p class="panel-sub" style="margin-bottom:16px">Set a target price — get notified when crossed.</p>
+      <div class="alert-form-grid">
+        <div class="alert-form-row">
+          <div class="alert-form-group">
+            <label class="alert-form-label">Metal</label>
+            <select class="alert-form-select" id="alertMetal" onchange="updateAlertHint()">
+              <option value="Gold">🪙 Gold</option>
+              <option value="Silver">⚪ Silver</option>
+              <option value="Platinum">💎 Platinum</option>
+            </select>
+          </div>
+          <div class="alert-form-group">
+            <label class="alert-form-label">Condition</label>
+            <select class="alert-form-select" id="alertCondition">
+              <option value="above">Price Above ▲</option>
+              <option value="below">Price Below ▼</option>
+            </select>
+          </div>
+        </div>
+        <div class="alert-form-group">
+          <label class="alert-form-label">Target Price (₹) — <span id="alertHint" style="color:var(--accent)">Current Gold: ₹6,84,200</span></label>
+          <input class="alert-form-input" type="number" id="alertPrice" placeholder="e.g. 690000" oninput="updateProgressPreview()">
+        </div>
+        <div id="alertError" style="color:var(--red);font-size:12px;display:none;">⚠️ Please enter a valid target price.</div>
+        <button class="add-alert-btn" onclick="addAlert()">+ Set Alert</button>
+      </div>
+    </div> <!-- Closes alert-form-card -->
+    <div class="alert-stats-card">
+      <h2 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px;">📊 Alert Summary
+      </h2>
+      <p class="panel-sub" style="margin-bottom:8px">Overview of your active alerts.</p>
+      <div class="alert-stat">
+        <div>
+          <div class="alert-stat-label">Total Alerts</div>
+          <div class="alert-stat-val" id="statTotal">3</div>
+        </div>
+        <span style="font-size:28px">🔔</span>
+      </div>
+      <div class="alert-stat">
+        <div>
+          <div class="alert-stat-label">Triggered</div>
+          <div class="alert-stat-val" style="color:var(--green)" id="statTriggered">1</div>
+        </div>
+        <span style="font-size:28px">✅</span>
+      </div>
+      <div class="alert-stat">
+        <div>
+          <div class="alert-stat-label">Watching</div>
+          <div class="alert-stat-val" style="color:var(--blue)" id="statWatching">2</div>
+        </div>
+        <span style="font-size:28px">👁️</span>
+      </div>
+    </div>
+  </div>
+  <div class="alert-list-card">
+    <div class="alert-list-header">
+      <div class="alert-list-title">Active Alerts <span id="alertBadge" style="background:var(--accent);color:#000;border-radius:20px;padding:2px 9px;font-size:11px;margin-left:6px;font-weight:700">3</span>
+      </div>
+      <div class="alert-filter-tabs">
+        <button class="filter-tab active" onclick="filterAlerts('all',this)">All</button>
+        <button class="filter-tab" onclick="filterAlerts('active',this)">Watching</button>
+        <button class="filter-tab" onclick="filterAlerts('triggered',this)">Triggered</button>
+      </div>
+    </div>
+    <div id="alertsList">
+      <div class="alert-item triggered" data-status="triggered" data-id="1">
+        <div class="alert-metal-icon">🪙</div>
+        <div class="alert-info">
+          <div class="alert-name">Gold — Above ₹6,80,000</div>
+          <div class="alert-detail">Set 2 days ago · Current: ₹6,84,200 · Triggered 3 hrs ago</div>
+          <div class="alert-progress">
+            <div class="alert-progress-bar" style="width:100%;background:var(--green)"></div>
+          </div>
+        </div>
+        <span class="alert-status status-triggered">✅ Triggered</span>
+        <div class="alert-actions">
+          <button class="alert-action-btn dismiss-btn" onclick="dismissAlert(this)">Archive</button>
+          <button class="alert-action-btn" onclick="deleteAlert(this)">🗑</button>
+        </div>
+      </div>
+      <div class="alert-item" data-status="active" data-id="2">
+        <div class="alert-metal-icon">⚪</div>
+        <div class="alert-info">
+          <div class="alert-name">Silver — Below ₹84,000</div>
+          <div class="alert-detail">Set 1 day ago · Current: ₹85,400 · Watching... (₹1,400 away)</div>
+          <div class="alert-progress">
+            <div class="alert-progress-bar" style="width:72%"></div>
+          </div>
+        </div>
+        <span class="alert-status status-active">🔵 Watching</span>
+        <div class="alert-actions">
+          <button class="alert-action-btn dismiss-btn" onclick="dismissAlert(this)">Archive</button>
+          <button class="alert-action-btn" onclick="deleteAlert(this)">🗑</button>
+        </div>
+      </div>
+      <div class="alert-item" data-status="active" data-id="3">
+        <div class="alert-metal-icon">💎</div>
+        <div class="alert-info">
+          <div class="alert-name">Platinum — Above ₹8,00,000</div>
+          <div class="alert-detail">Set 5 hrs ago · Current: ₹7,92,000 · Watching... (₹8,000 away)</div>
+          <div class="alert-progress">
+            <div class="alert-progress-bar" style="width:55%"></div>
+          </div>
+        </div>
+        <span class="alert-status status-active">🔵 Watching</span>
+        <div class="alert-actions">
+          <button class="alert-action-btn dismiss-btn" onclick="dismissAlert(this)">Archive</button>
+          <button class="alert-action-btn" onclick="deleteAlert(this)">🗑</button>
+        </div>
+      </div>
+    </div>
+    <div class="alerts-empty" id="alertsEmpty" style="display:none">🔔 No alerts here. Create one above!</div>
+  </div>
+</div>

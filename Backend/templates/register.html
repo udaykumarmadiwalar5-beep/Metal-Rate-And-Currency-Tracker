@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #0b2545;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            width: 350px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .input-group {
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            margin: 0;
+            padding-right: 40px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #ffb703;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background: #ffa600;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .requirements {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            text-align: left;
+            display: none;
+        }
+
+        .requirements.show {
+            display: block;
+        }
+
+        .requirement-item {
+            margin: 6px 0;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .requirement-check {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .requirement-check.unchecked {
+            background: #ccc;
+        }
+
+        .requirement-check.checked {
+            background: #28a745;
+        }
+
+        .requirement-text.unchecked {
+            color: #666;
+        }
+
+        .requirement-text.checked {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Create Account</h2>
+
+        <form id="registerForm" autocomplete="off">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" autocomplete="new-password" required>
+                <span class="toggle-password" onclick="togglePassword('username', this)"></span>
+            </div>
+            <div id="usernameRequirements" class="requirements">
+                <strong>Username Requirements:</strong>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-username-length">✗</div>
+                    <span class="requirement-text unchecked" id="text-username-length">Minimum 8 characters</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-username-uppercase">✗</div>
+                    <span class="requirement-text unchecked" id="text-username-uppercase">1 Uppercase letter (A-Z)</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-username-lowercase">✗</div>
+                    <span class="requirement-text unchecked" id="text-username-lowercase">1 Lowercase letter (a-z)</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email" autocomplete="new-password" required>
+                <span class="toggle-password" onclick="togglePassword('email', this)"></span>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" autocomplete="new-password" required>
+                <span class="toggle-password" onclick="togglePassword('password', this)"></span>
+            </div>
+            <div id="passwordRequirements" class="requirements">
+                <strong>Password Requirements:</strong>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-length">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-length">Minimum 8 characters</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-uppercase">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-uppercase">1 Uppercase letter (A-Z)</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-lowercase">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-lowercase">1 Lowercase letter (a-z)</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-number">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-number">1 Number (0-9)</span>
+                </div>
+                <div class="requirement-item">
+                    <div class="requirement-check unchecked" id="check-password-special">✗</div>
+                    <span class="requirement-text unchecked" id="text-password-special">1 Special character (!@#$%^&*)</span>
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" autocomplete="new-password" required>
+                <span class="toggle-password" onclick="togglePassword('confirmPassword', this)"></span>
+            </div>
+            <div id="errorMessage" class="error"></div>
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account? <a href="/login">Login</a></p>
+
+    </div>
+
+    <script>
+        const eyeOn = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+        const eyeOff = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerHTML = eyeOn;
+            } else {
+                input.type = 'password';
+                icon.innerHTML = eyeOff;
+            }
+        }
+
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            const match = icon.getAttribute('onclick').match(/'([^']+)'/);
+            if (match) {
+                const input = document.getElementById(match[1]);
+                if (input) icon.innerHTML = input.type === 'password' ? eyeOff : eyeOn;
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════
+        //  VALIDATION FUNCTIONS
+        // ═══════════════════════════════════════════════════════
+
+        function validateUsername(username) {
+            return {
+                length: username.length >= 8,
+                uppercase: /[A-Z]/.test(username),
+                lowercase: /[a-z]/.test(username)
+            };
+        }
+
+        function validatePassword(password) {
+            return {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password),
+                special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+            };
+        }
+
+        function updateRequirementUI(prefix, validation) {
+            const requirements = Object.keys(validation);
+            requirements.forEach(req => {
+                const checkElement = document.getElementById(`check-${prefix}-${req}`);
+                const textElement = document.getElementById(`text-${prefix}-${req}`);
+                if (checkElement && textElement) {
+                    if (validation[req]) {
+                        checkElement.textContent = '✓';
+                        checkElement.className = 'requirement-check checked';
+                        textElement.className = 'requirement-text checked';
+                    } else {
+                        checkElement.textContent = '✗';
+                        checkElement.className = 'requirement-check unchecked';
+                        textElement.className = 'requirement-text unchecked';
+                    }
+                }
+            });
+        }
+
+        function isAllValid(validation) {
+            return Object.values(validation).every(v => v === true);
+        }
+
+        // ═══════════════════════════════════════════════════════
+        //  EVENT LISTENERS
+        // ═══════════════════════════════════════════════════════
+
+        document.getElementById('username').addEventListener('input', function() {
+            const requirements = validateUsername(this.value);
+            updateRequirementUI('username', requirements);
+            if (this.value.length > 0) {
+                document.getElementById('usernameRequirements').classList.add('show');
+            }
+        });
+
+        document.getElementById('username').addEventListener('blur', function() {
+            if (this.value.length === 0) {
+                document.getElementById('usernameRequirements').classList.remove('show');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            const requirements = validatePassword(this.value);
+            updateRequirementUI('password', requirements);
+            if (this.value.length > 0) {
+                document.getElementById('passwordRequirements').classList.add('show');
+            }
+        });
+
+        document.getElementById('password').addEventListener('blur', function() {
+            if (this.value.length === 0) {
+                document.getElementById('passwordRequirements').classList.remove('show');
+            }
+        });
+
+        document.getElementById("registerForm").addEventListener("submit", function (event) {
+            event.preventDefault()
+
+            let username = document.getElementById("username").value.trim()
+            let email = document.getElementById("email").value.trim()
+            let password = document.getElementById("password").value.trim()
+            let confirmPassword = document.getElementById("confirmPassword").value.trim()
+            let error = document.getElementById("errorMessage")
+
+            error.innerHTML = ""
+
+            // ═══ Username Validation ═══
+            const usernameValidation = validateUsername(username);
+            if (!isAllValid(usernameValidation)) {
+                let missing = [];
+                if (!usernameValidation.length) missing.push("8+ characters");
+                if (!usernameValidation.uppercase) missing.push("1 uppercase letter");
+                if (!usernameValidation.lowercase) missing.push("1 lowercase letter");
+                error.innerHTML = "⚠️ Username must have: " + missing.join(", ");
+                return;
+            }
+
+            if (username.length > 50) {
+                error.innerHTML = "⚠️ Username must not exceed 50 characters"
+                return
+            }
+
+            // ═══ Email Validation ═══
+            let emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
+            if (!email.match(emailPattern)) {
+                error.innerHTML = "⚠️ Enter a valid lowercase email address"
+                return
+            }
+
+            // ═══ Password Validation ═══
+            const passwordValidation = validatePassword(password);
+            if (!isAllValid(passwordValidation)) {
+                let missing = [];
+                if (!passwordValidation.length) missing.push("8+ characters");
+                if (!passwordValidation.uppercase) missing.push("1 uppercase letter");
+                if (!passwordValidation.lowercase) missing.push("1 lowercase letter");
+                if (!passwordValidation.number) missing.push("1 number");
+                if (!passwordValidation.special) missing.push("1 special character");
+                error.innerHTML = "⚠️ Password must have: " + missing.join(", ");
+                return;
+            }
+
+            if (password.length > 100) {
+                error.innerHTML = "⚠️ Password must not exceed 100 characters"
+                return
+            }
+
+            // ═══ Confirm Password Validation ═══
+            if (password !== confirmPassword) {
+                error.innerHTML = "⚠️ Passwords do not match"
+                return
+            }
+
+            // ═══ Submit ═══
+            const btn = event.target.querySelector('button[type="submit"]')
+            btn.textContent = 'Creating Account...'
+            btn.disabled = true
+
+            fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("✅ Registration Successful!");
+                        window.location.href = "/login";
+                    } else {
+                        error.innerHTML = "❌ " + (data.error || "Registration failed");
+                        btn.textContent = 'Register'
+                        btn.disabled = false
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    error.innerHTML = "❌ Network error. Please try again.";
+                    btn.textContent = 'Register'
+                    btn.disabled = false
+                });
+        });
+
+    </script>
+
+</body>
+
+</html>

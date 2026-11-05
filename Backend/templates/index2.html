@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetalTracker | Professional Metal & Currency Insights</title>
+
+    <style>
+        :root {
+            --primary-dark: #020617;
+            --primary-light: #0f172a;
+            --accent-gold: #d4af37;
+            --accent-gold-hover: #b5952f;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --silver: #c0c0c0;
+            --platinum: #e5e4e2;
+            --accent-blue: #38bdf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6%;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span {
+            color: var(--accent-gold);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        .login-btn {
+            background: transparent;
+            color: var(--accent-gold) !important;
+            border: 1px solid var(--accent-gold);
+            padding: 10px 28px;
+            border-radius: 4px;
+            transition: all 0.3s ease !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .login-btn:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark) !important;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 0 6%;
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #020617 100%);
+            overflow: hidden;
+        }
+
+        .background-elements {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .brand-background {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            max-width: 760px;
+            margin: 100px auto;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0 auto 28px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 6.5rem;
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        .hero-content p {
+            font-size: 2rem;
+            color: white
+            margin-bottom: 40px;
+            max-width: 700px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .get-started-btn {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .get-started-btn:hover {
+            background: var(--accent-gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .learn-more-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 20px 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .learn-more-btn:hover {
+            background: var(--card-bg);
+            border-color: var(--text-muted);
+        }
+
+        /* Prices Section */
+        .prices-section {
+            padding: 100px 6%;
+            background: var(--primary-dark);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .prices-note {
+            margin-top: 24px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card {
+            background: var(--primary-light);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gold);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .card:nth-child(2)::before {
+            background: var(--silver);
+        }
+
+        .card:nth-child(3)::before {
+            background: var(--platinum);
+        }
+
+        .card:nth-child(4)::before {
+            background: var(--accent-blue);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .card .label {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card .value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+            width: 100%;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .card .trend {
+            font-size: 0.9rem;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 6%;
+            background: var(--primary-light);
+            border-top: 1px solid var(--card-border);
+        }
+
+        .about-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.6rem;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+
+        .about-content p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .about-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .feature-icon {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            background: rgba(212, 175, 55, 0.1);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .about-image {
+            background: var(--primary-light);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
+            z-index: 1;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Partners Section */
+        .partners-section {
+            padding: 80px 6%;
+            background: var(--primary-dark);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .partners-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .partners-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .partners-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .partner-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: var(--primary-light);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            min-height: 140px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .partner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .partner-card:hover::before {
+            left: 100%;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .partner-logo {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .partner-logo svg {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .partner-card:hover .partner-logo svg {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .partner-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: color 0.3s ease;
+        }
+
+        .partner-card:hover .partner-name {
+            color: var(--accent-gold);
+        }
+
+        /* Footer */
+        footer {
+            background: #090e1a;
+            padding: 40px 6%;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 4.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 3.2rem;
+            }
+
+            .about-content h2 {
+                font-size: 3rem;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                min-height: 300px;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 25px;
+            }
+
+            .partners-header h2 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 5%;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.35rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .get-started-btn,
+            .learn-more-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .section-header p {
+                font-size: 2rem;
+            }
+
+            .partners-section {
+                padding: 60px 5%;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 20px;
+            }
+
+            .partner-card {
+                padding: 20px;
+                min-height: 120px;
+            }
+
+            .partner-logo svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .partner-name {
+                font-size: 0.95rem;
+            }
+
+            .partners-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .partners-header p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .partner-card {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .partner-logo {
+                flex-direction: column;
+            }
+
+            .partner-name {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-logo">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#d4af37" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M2 17L12 22L22 17" stroke="#d4af37" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M2 12L12 17L22 12" stroke="#d4af37" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            Metal<span>Tracker</span>
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#markets">Markets</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a class="login-btn" href="/login">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section" id="home">
+        <!-- Clean Professional Background -->
+        <div class="background-elements">
+            <!-- Simplified Professional Background SVG -->
+            <svg class="brand-background" viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <!-- Premium Multi-Color Gradient -->
+                    <linearGradient id="premiumGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#020617;stop-opacity:1" />
+                        <stop offset="25%" style="stop-color:#1a0a3a;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#0f172a;stop-opacity:1" />
+                        <stop offset="75%" style="stop-color:#051820;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#020617;stop-opacity:1" />
+                    </linearGradient>
+                    
+                    <!-- Radial Glow - Gold Left -->
+                    <radialGradient id="goldGlow" cx="15%" cy="30%">
+                        <stop offset="0%" style="stop-color:#d4af37;stop-opacity:0.15" />
+                        <stop offset="50%" style="stop-color:#d4af37;stop-opacity:0.05" />
+                        <stop offset="100%" style="stop-color:#d4af37;stop-opacity:0" />
+                    </radialGradient>
+                    
+                    <!-- Radial Glow - Blue Center -->
+                    <radialGradient id="blueGlow" cx="50%" cy="40%">
+                        <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:0.12" />
+                        <stop offset="50%" style="stop-color:#38bdf8;stop-opacity:0.04" />
+                        <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:0" />
+                    </radialGradient>
+                    
+                    <!-- Radial Glow - Purple Right -->
+                    <radialGradient id="purpleGlow" cx="85%" cy="25%">
+                        <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:0.12" />
+                        <stop offset="50%" style="stop-color:#a78bfa;stop-opacity:0.04" />
+                        <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:0" />
+                    </radialGradient>
+                    
+                    <!-- Radial Glow - Cyan Bottom -->
+                    <radialGradient id="cyanGlow" cx="50%" cy="85%">
+                        <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.1" />
+                        <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:0.03" />
+                        <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0" />
+                    </radialGradient>
+                </defs>
+                
+                <!-- Base Gradient Background -->
+                <rect width="1400" height="700" fill="url(#premiumGradient)"/>
+                
+                <!-- Glow Overlays -->
+                <rect width="1400" height="700" fill="url(#goldGlow)"/>
+                <rect width="1400" height="700" fill="url(#blueGlow)"/>
+                <rect width="1400" height="700" fill="url(#purpleGlow)"/>
+                <rect width="1400" height="700" fill="url(#cyanGlow)"/>
+                
+                <!-- Elegant Grid Lines -->
+                <line x1="0" y1="350" x2="1400" y2="350" stroke="#38bdf8" stroke-width="1" opacity="0.03"/>
+                <line x1="700" y1="0" x2="700" y2="700" stroke="#d4af37" stroke-width="1" opacity="0.03"/>
+                
+                <!-- Subtle Accent Lines for Depth -->
+                <line x1="0" y1="175" x2="1400" y2="175" stroke="#a78bfa" stroke-width="0.5" opacity="0.02"/>
+                <line x1="0" y1="525" x2="1400" y2="525" stroke="#06b6d4" stroke-width="0.5" opacity="0.02"/>
+                <line x1="350" y1="0" x2="350" y2="700" stroke="#c0c0c0" stroke-width="0.5" opacity="0.02"/>
+                <line x1="1050" y1="0" x2="1050" y2="700" stroke="#38bdf8" stroke-width="0.5" opacity="0.02"/>
+            </svg>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">Live Market Tracking Platform</div>
+            <h1>Real-Time Precious Metal & Currency Prices.</h1>
+            <p>Track live precious metal prices across all Indian states and union territories. Get real-time investment suggestions powered by intelligent rule-based logic, plus live global news analysis for informed decision-making.</p>
+            <div class="hero-buttons">
+                <button class="get-started-btn" onclick="window.location.href='/login'">Access
+                    Dashboard</button>
+                <a class="learn-more-btn" href="#markets">View Live Rates</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Metal Prices -->
+    <section class="prices-section" id="markets">
+        <div class="section-header">
+            <h2>Live Price Tracker</h2>
+            <p>Real-time precious metal prices across all Indian states and union territories. Track gold, silver, and platinum with live currency exchange rates updated instantly.</p>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Gold -->
+            <div class="card">
+                <div class="card-icon" style="color: var(--accent-gold);">
+                    Au
+                </div>
+                <div class="label">Gold(24K) per 10g</div>
+                <div class="value" id="gold-price">₹ {{ gold }}</div>
+                <div class="trend">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                    Retail Rate
+                </div>
+            </div>
+
+            <!-- Silver -->
+            <div class="card">
+                <div class="card-icon" style="color: var(--silver);">
+                    Ag
+                </div>
+                <div class="label">Silver per kg</div>
+                <div class="value" id="silver-price">₹ {{ silver }}</div>
+                <div class="trend">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                    Retail Rate
+                </div>
+            </div>
+
+            <!-- Platinum -->
+            <div class="card">
+                <div class="card-icon" style="color: var(--platinum);">
+                    Pt
+                </div>
+                <div class="label">Platinum per 10g</div>
+                <div class="value" id="platinum-price">₹ {{ platinum }}</div>
+                <div class="trend">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                    Retail Rate
+                </div>
+            </div>
+
+            <!-- USD to INR -->
+            <div class="card">
+                <div class="card-icon" style="color: var(--accent-blue);">
+                    $
+                </div>
+                <div class="label">USD / INR</div>
+                <div class="value" id="usd-inr-price">₹ {{ usd_inr }}</div>
+                <div class="trend">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                    Live Rate
+                </div>
+            </div>
+        </div>
+        <p class="prices-note">Retail cards show global USD metal spot prices (fetched from yfinance) converted to INR using live USDINR rate, scaled to 10g/kg, and marked up by 15% import duty + 3% GST + 1.5% jeweller premium = 1.20226× multiplier for Indian retail parity.</p>
+    </section>
+
+    <!-- About -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>Comprehensive Metal Price Tracking & Smart Investment Insights</h2>
+                <p>
+                    MetalTracker delivers real-time precious metal price tracking across all Indian states and union territories. Our platform provides live gold, silver, and platinum prices with instant currency conversion rates, enabling you to monitor market movements with precision and accuracy.
+                </p>
+                <p>
+                    Powered by sophisticated rule-based investment logic, our platform analyzes live global news and market trends to deliver intelligent investment suggestions. Get actionable insights on optimal buying and selling opportunities, backed by data-driven algorithms rather than black-box AI—giving you transparent, explainable investment guidance.
+                </p>
+
+                <ul class="about-features">
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Live metal prices across all 28 states and 8 union territories of India
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Real-time gold, silver, and platinum price tracking with instant updates
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Live currency exchange rates (USD, EUR, GBP, and more)
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Rule-based investment suggestions powered by transparent logic algorithms
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Live global news feed related to precious metals and currency markets
+                    </li>
+                    <li>
+                        <div class="feature-icon">✓</div>
+                        Custom price alerts and real-time market notifications
+                    </li>
+                </ul>
+            </div>
+            <div class="about-image">
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; max-width: 350px;">
+                    <defs>
+                        <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#d4af37;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#38bdf8;stop-opacity:0.6" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Background Circle -->
+                    <circle cx="200" cy="200" r="180" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(212, 175, 55, 0.2)" stroke-width="2"/>
+                    
+                    <!-- Chart Lines -->
+                    <polyline points="50,300 100,280 150,250 200,220 250,190 300,160 350,140" 
+                              fill="none" stroke="url(#chartGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <!-- Data Points -->
+                    <circle cx="50" cy="300" r="5" fill="#d4af37" opacity="0.8"/>
+                    <circle cx="100" cy="280" r="5" fill="#d4af37" opacity="0.8"/>
+                    <circle cx="150" cy="250" r="5" fill="#38bdf8" opacity="0.8"/>
+                    <circle cx="200" cy="220" r="5" fill="#38bdf8" opacity="0.8"/>
+                    <circle cx="250" cy="190" r="5" fill="#a78bfa" opacity="0.8"/>
+                    <circle cx="300" cy="160" r="5" fill="#a78bfa" opacity="0.8"/>
+                    <circle cx="350" cy="140" r="6" fill="#06b6d4" opacity="0.9"/>
+                    
+                    <!-- Grid Lines -->
+                    <line x1="30" y1="100" x2="370" y2="100" stroke="rgba(212, 175, 55, 0.1)" stroke-width="1" stroke-dasharray="5,5"/>
+                    <line x1="30" y1="200" x2="370" y2="200" stroke="rgba(212, 175, 55, 0.1)" stroke-width="1" stroke-dasharray="5,5"/>
+                    <line x1="30" y1="300" x2="370" y2="300" stroke="rgba(212, 175, 55, 0.1)" stroke-width="1" stroke-dasharray="5,5"/>
+                    
+                    <!-- Axis -->
+                    <line x1="30" y1="320" x2="370" y2="320" stroke="rgba(212, 175, 55, 0.3)" stroke-width="2"/>
+                    <line x1="30" y1="80" x2="30" y2="320" stroke="rgba(212, 175, 55, 0.3)" stroke-width="2"/>
+                    
+                    <!-- Legend -->
+                    <text x="50" y="360" font-size="12" fill="#cbd5e1" font-family="Inter, sans-serif">Gold Trends</text>
+                    <text x="50" y="380" font-size="12" fill="#cbd5e1" font-family="Inter, sans-serif">Live Market Analysis</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="partners-header">
+            <h2>Trusted By Industry Leaders</h2>
+            <p>MetalTracker partners with leading financial institutions and investment platforms to deliver comprehensive market intelligence.</p>
+        </div>
+
+        <div class="partners-grid">
+            <!-- NSE India -->
+            <a href="https://www.nseindia.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(212, 175, 55, 0.1)" rx="8"/>
+                        <text x="50" y="50" font-size="20" font-weight="bold" fill="#d4af37" text-anchor="middle" dominant-baseline="central">NSE</text>
+                        <text x="50" y="70" font-size="10" fill="#cbd5e1" text-anchor="middle">INDIA</text>
+                    </svg>
+                    <span class="partner-name">NSE India</span>
+                </div>
+            </a>
+
+            <!-- BSE India -->
+            <a href="https://www.bseindia.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(192, 192, 192, 0.1)" rx="8"/>
+                        <text x="50" y="50" font-size="20" font-weight="bold" fill="#c0c0c0" text-anchor="middle" dominant-baseline="central">BSE</text>
+                        <text x="50" y="70" font-size="10" fill="#cbd5e1" text-anchor="middle">INDIA</text>
+                    </svg>
+                    <span class="partner-name">BSE India</span>
+                </div>
+            </a>
+
+            <!-- Bloomberg -->
+            <a href="https://www.bloomberg.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(229, 228, 226, 0.1)" rx="8"/>
+                        <circle cx="30" cy="40" r="6" fill="#e5e4e2"/>
+                        <circle cx="50" cy="35" r="6" fill="#e5e4e2"/>
+                        <circle cx="70" cy="40" r="6" fill="#e5e4e2"/>
+                        <text x="50" y="70" font-size="12" fill="#e5e4e2" text-anchor="middle" font-weight="bold">Bloomberg</text>
+                    </svg>
+                    <span class="partner-name">Bloomberg</span>
+                </div>
+            </a>
+
+            <!-- Reuters -->
+            <a href="https://www.reuters.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(56, 189, 248, 0.1)" rx="8"/>
+                        <path d="M25 45 Q50 35 75 45" stroke="#38bdf8" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M30 55 Q50 48 70 55" stroke="#38bdf8" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <text x="50" y="75" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">Reuters</text>
+                    </svg>
+                    <span class="partner-name">Reuters</span>
+                </div>
+            </a>
+
+            <!-- RBI -->
+            <a href="https://www.rbi.org.in" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <circle cx="50" cy="50" r="45" stroke="#d4af37" stroke-width="2" fill="rgba(212, 175, 55, 0.05)"/>
+                        <text x="50" y="45" font-size="16" font-weight="bold" fill="#d4af37" text-anchor="middle">RBI</text>
+                        <text x="50" y="65" font-size="10" fill="#cbd5e1" text-anchor="middle">Reserve Bank</text>
+                    </svg>
+                    <span class="partner-name">RBI</span>
+                </div>
+            </a>
+
+            <!-- NCDEX -->
+            <a href="https://www.ncdex.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(167, 139, 250, 0.1)" rx="8"/>
+                        <rect x="20" y="25" width="15" height="50" fill="#a78bfa" rx="2"/>
+                        <rect x="42" y="15" width="15" height="60" fill="#a78bfa" rx="2"/>
+                        <rect x="64" y="30" width="15" height="45" fill="#a78bfa" rx="2"/>
+                        <text x="50" y="80" font-size="10" fill="#a78bfa" text-anchor="middle" font-weight="bold">NCDEX</text>
+                    </svg>
+                    <span class="partner-name">NCDEX</span>
+                </div>
+            </a>
+
+            <!-- ICICI Bank -->
+            <a href="https://www.icicibank.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(56, 189, 248, 0.1)" rx="8"/>
+                        <path d="M30 35 L70 35 L70 65 L30 65 Z" fill="none" stroke="#38bdf8" stroke-width="2"/>
+                        <text x="50" y="50" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle" dominant-baseline="central">ICICI</text>
+                        <text x="50" y="72" font-size="9" fill="#cbd5e1" text-anchor="middle">Bank</text>
+                    </svg>
+                    <span class="partner-name">ICICI Bank</span>
+                </div>
+            </a>
+
+            <!-- HDFC Bank -->
+            <a href="https://www.hdfcbank.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="#06b6d4" stroke-width="2"/>
+                        <text x="50" y="50" font-size="14" font-weight="bold" fill="#06b6d4" text-anchor="middle" dominant-baseline="central">HDFC</text>
+                        <text x="50" y="72" font-size="9" fill="#cbd5e1" text-anchor="middle">Bank</text>
+                    </svg>
+                    <span class="partner-name">HDFC Bank</span>
+                </div>
+            </a>
+
+            <!-- Cryptocompare -->
+            <a href="https://www.cryptocompare.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(212, 175, 55, 0.1)" rx="8"/>
+                        <circle cx="35" cy="40" r="8" fill="#d4af37" opacity="0.7"/>
+                        <circle cx="50" cy="35" r="8" fill="#d4af37"/>
+                        <circle cx="65" cy="40" r="8" fill="#d4af37" opacity="0.7"/>
+                        <text x="50" y="72" font-size="10" fill="#d4af37" text-anchor="middle" font-weight="bold">Crypto</text>
+                    </svg>
+                    <span class="partner-name">CryptoCompare</span>
+                </div>
+            </a>
+
+            <!-- Moneycontrol -->
+            <a href="https://www.moneycontrol.com" target="_blank" class="partner-card">
+                <div class="partner-logo">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                        <rect width="100" height="100" fill="rgba(16, 185, 129, 0.1)" rx="8"/>
+                        <path d="M30 50 L50 30 L70 50 L50 70 Z" fill="none" stroke="#10b981" stroke-width="2" stroke-linejoin="round"/>
+                        <text x="50" y="80" font-size="10" fill="#10b981" text-anchor="middle" font-weight="bold">Money</text>
+                    </svg>
+                    <span class="partner-name">Moneycontrol</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-text">
+            &copy; 2024 MetalTracker. All accurate market data is subject to volatility. Use at your own risk.
+        </div>
+    </footer>
+
+    <script>
+        // ===== INTERACTIVE BACKGROUND ANIMATION =====
+        
+        // Initialize particles
+        function initializeParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 40;
+            const particleTypes = ['gold', 'silver', 'blue'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = `particle ${particleTypes[i % particleTypes.length]}`;
+                
+                const size = Math.random() * 3 + 1;
+                const startX = Math.random() * window.innerWidth;
+                const startY = window.innerHeight + 50;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                const offsetX = (Math.random() - 0.5) * 200;
+                
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = startX + 'px';
+                particle.style.top = startY + 'px';
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                particle.style.setProperty('--offset-x', offsetX + 'px');
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Mouse parallax effect for background
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 2 - 1;
+            const y = (e.clientY / window.innerHeight) * 2 - 1;
+            
+            const goldOrb = document.querySelector('.glow-orb.gold');
+            const blueOrb = document.querySelector('.glow-orb.blue');
+            
+            if (goldOrb) {
+                goldOrb.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+            }
+            if (blueOrb) {
+                blueOrb.style.transform = `translate(${-x * 15}px, ${-y * 15}px)`;
+            }
+        });
+
+        // Animate mesh lines
+        function animateMeshLines() {
+            const svg = document.getElementById('mesh-lines');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            for (let i = 0; i < 5; i++) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const startX = Math.random() * width;
+                const startY = Math.random() * height;
+                const endX = startX + (Math.random() - 0.5) * 300;
+                const endY = startY + (Math.random() - 0.5) * 300;
+                
+                line.setAttribute('x1', startX);
+                line.setAttribute('y1', startY);
+                line.setAttribute('x2', endX);
+                line.setAttribute('y2', endY);
+                line.setAttribute('stroke', i % 2 === 0 ? '#d4af37' : '#38bdf8');
+                line.setAttribute('stroke-width', '0.5');
+                line.setAttribute('opacity', '0.1');
+                
+                svg.appendChild(line);
+            }
+        }
+
+        // Update particle float animation to use CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translateY(0) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-120vh) translateX(var(--offset-x, 0px));
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeParticles();
+            animateMeshLines();
+        });
+
+        // Simple script to add background to nav on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+                nav.style.padding = '15px 6%';
+            } else {
+                nav.style.background = 'rgba(15, 23, 42, 0.85)';
+                nav.style.boxShadow = 'none';
+                nav.style.padding = '20px 6%';
+            }
+        });
+
+        async function updatePrices() {
+            const OZ_TO_GRAM = 31.1034768;
+            try {
+                const response = await fetch('/api/prices/live');
+                const data = await response.json();
+                if (!data.success) return;
+
+                const RETAIL_MULTIPLIER = data.retail_multiplier || 1.20226;
+                const spot = data.global_spot || {};
+                const p = data.prices || {};
+                const getPriceValue = (item) => item && typeof item === 'object' && item.price != null ? item.price : item;
+                const usdInr = getPriceValue(p.usd_inr) || spot.usd_inr || 0;
+
+                const goldRetail = getPriceValue(p.gold) || (spot.gold_mcx_inr ? spot.gold_mcx_inr * 10 * RETAIL_MULTIPLIER : null);
+                const silverRetail = getPriceValue(p.silver) || (spot.silver_mcx_inr ? spot.silver_mcx_inr * 1000 * RETAIL_MULTIPLIER : null);
+                const platinumRetail = getPriceValue(p.platinum) || ((spot.platinum_usd_oz && usdInr) ? (spot.platinum_usd_oz / OZ_TO_GRAM) * usdInr * 10 * RETAIL_MULTIPLIER : null);
+
+                if (goldRetail !== null) {
+                    document.getElementById('gold-price').innerText = '₹ ' + goldRetail.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+                if (silverRetail !== null) {
+                    document.getElementById('silver-price').innerText = '₹ ' + silverRetail.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+                if (platinumRetail !== null) {
+                    document.getElementById('platinum-price').innerText = '₹ ' + platinumRetail.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+                if (usdInr) document.getElementById('usd-inr-price').innerText = '₹ ' + usdInr.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            } catch (err) { console.error('Price update failed', err); }
+        }
+        setInterval(updatePrices, 30000);
+        updatePrices();
+    </script>
+</body>
+
+</html>

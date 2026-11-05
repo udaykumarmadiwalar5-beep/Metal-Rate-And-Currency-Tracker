@@ -1,0 +1,202 @@
+﻿<!-- INVESTMENT ADVISOR -->
+<div class="panel" id="panel-advisor">
+  <!-- Visibility Check -->
+  <div style="background:rgba(0,123,255,0.1); color:#007bff; padding:10px; border-radius:8px; margin-bottom:15px; font-weight:bold; border:1px solid #007bff; display:block !important;">✅ Investment Advisor Panel Loaded</div>
+  <div class="panel-card advisor-container">
+    <div class="advisor-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 24px;">📊</span>
+        <div>
+          <h2>Investment Advisor</h2>
+          <p class="panel-sub" style="margin-bottom: 0;">Powered by a real company database. Select a plan, choose
+            a company, enter your budget and risk level — get a data-driven recommendation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Market Insights Banner -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; background: var(--card2); padding: 16px; border-radius: 12px; border: 1px solid var(--border);">
+      <div style="text-align: center;">
+        <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">NSE Listed</div>
+        <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text);">2,700+</div>
+      </div>
+      <div style="text-align: center; border-left: 1px solid var(--border);">
+        <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">BSE Listed</div>
+        <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text);">5,900+</div>
+      </div>
+      <div style="text-align: center; border-left: 1px solid var(--border);">
+        <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">Active AMCs</div>
+        <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text);">45+</div>
+      </div>
+      <div style="text-align: center; border-left: 1px solid var(--border);">
+        <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">Curated Blue-Chips</div>
+        <div style="font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--accent);">90+</div>
+      </div>
+    </div>
+
+    <div class="advisor-steps">
+      <div class="step-item active" data-step="1">
+        <span class="step-num">1</span> Plan Type
+      </div>
+      <div class="step-sep">›</div>
+      <div class="step-item" data-step="2">
+        <span class="step-num">2</span> Company
+      </div>
+      <div class="step-sep">›</div>
+      <div class="step-item" data-step="3">
+        <span class="step-num">3</span> Profile
+      </div>
+      <div class="step-sep">›</div>
+      <div class="step-item" data-step="4">
+        <span class="step-num">4</span> Result
+      </div>
+    </div>
+
+    <div class="advisor-content">
+      <div class="advisor-step active" id="advisor-step-1">
+        <div class="plan-cards">
+          <div class="plan-card" onclick="selectPlan('stock')">
+            <div class="plan-icon">📈</div>
+            <h3>Stock Investment</h3>
+            <p>One-time lump sum. Buy shares of metal companies. Best for active investors seeking capital growth.
+            </p>
+          </div>
+          <div class="plan-card" onclick="selectPlan('sip')">
+            <div class="plan-icon">🔄</div>
+            <h3>SIP Plan</h3>
+            <p>Fixed monthly investment. Rupee cost averaging over time. Ideal for long-term wealth building.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="advisor-step" id="advisor-step-2">
+        <div style="margin-bottom:14px;">
+          <div style="font-size:14px; font-weight:700; color:var(--text);">Select Sector</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:2px;">NSE / BSE listed — tap a sector to filter stocks &amp; SIP plans</div>
+        </div>
+        <div style="max-width:520px; width:100%; margin-bottom:18px;">
+          <div style="position:relative; width:100%;">
+            <input type="text" class="alert-form-input" id="coSearch"
+              placeholder="Search name or ticker (e.g. INFY, Tata)" oninput="debounceSearch()"
+              style="padding-left:34px; font-size:13px; width:100%;">
+            <span
+              style="position:absolute; left:11px; top:50%; transform:translateY(-50%); opacity:0.5; font-size:14px;">🔍</span>
+          </div>
+        </div>
+
+        <div class="sector-chips" id="sectorChips">
+          <div class="sector-chip active" data-sector="all" onclick="selectSectorChip(this,'all')">
+            🌍 All &nbsp;<span class="chip-count" id="totalChipCount">—</span>
+          </div>
+        </div>
+
+        <div class="sector-info-bar">
+          <span id="sectorInfoText" style="color:var(--muted); font-weight:600;">🌍 All Sectors</span>
+          <span id="sectorResultCount" style="color:var(--accent); font-weight:700;">—</span>
+        </div>
+
+        <div class="company-grid" id="companyGrid">
+        </div>
+
+        <!-- Custom Stock Addition UI -->
+        <div id="no-results-ui" style="display:none; text-align:center; padding:40px 20px; background:var(--card2); border-radius:14px; border:1px dashed var(--border); margin-top:20px;">
+          <div style="font-size:40px; margin-bottom:15px;">🔍</div>
+          <h3 style="margin-bottom:8px;">Can't find your stock?</h3>
+          <p style="font-size:13px; color:var(--muted); max-width:400px; margin:0 auto 20px;">We've listed the top 90+ blue-chips, but you can add ANY NSE/BSE company manually to your system.</p>
+          <div style="display:flex; flex-direction:column; gap:10px; max-width:300px; margin:0 auto;">
+            <input type="text" id="customCoName" class="alert-form-input" placeholder="Company Full Name (e.g. Suzlon Energy)">
+            <input type="text" id="customCoTicker" class="alert-form-input" placeholder="Ticker Symbol (e.g. SUZLON)">
+            <select id="customCoSector" class="alert-form-input" style="cursor:pointer;">
+              <option value="banking">🏦 Banking & Finance</option>
+              <option value="it">💻 Information Technology</option>
+              <option value="energy">⚡ Energy & Power</option>
+              <option value="pharma">💊 Pharma & Healthcare</option>
+              <option value="fmcg">🛒 FMCG & Consumer</option>
+              <option value="auto">🚗 Automobile</option>
+              <option value="gold">💍 Gold & Jewellery</option>
+              <option value="silver">🔗 Silver & Base Metals</option>
+              <option value="infra">🏗️ Infrastructure & Defence</option>
+              <option value="realty">🏠 Real Estate</option>
+              <option value="telecom">📡 Telecom & Media</option>
+              <option value="diversified" selected>📊 Diversified/Other</option>
+            </select>
+            <select id="customCoRisk" class="alert-form-input" style="cursor:pointer;">
+              <option value="low">🛡️ Low Risk (Stable)</option>
+              <option value="medium" selected>⚖️ Medium Risk (Balanced)</option>
+              <option value="high">🚀 High Risk (Volatile)</option>
+            </select>
+            <button class="add-alert-btn" onclick="addCustomCompany()" id="btnAddCustom">➕ Add to My System</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="advisor-step" id="advisor-step-3">
+        <!-- Selected Entity Summary -->
+        <div id="selected-entity-summary" style="margin-bottom:20px; padding:15px; background:rgba(212,175,55,0.08); border:1px solid var(--accent); border-radius:12px; display:flex; align-items:center; gap:12px; max-width:500px; margin: 0 auto 20px;">
+          <div style="font-size:24px;">🎯</div>
+          <div>
+            <div style="font-size:10px; color:var(--accent); text-transform:uppercase; font-weight:700; letter-spacing:1px;">Building Profile For:</div>
+            <div id="summary-entity-name" style="font-size:18px; font-weight:700; color:var(--text);">No Selection</div>
+          </div>
+        </div>
+
+        <!-- Per-company profiles container (filled dynamically when multiple companies selected) -->
+        <div id="perCompanyProfiles" style="max-width:700px; margin:0 auto 12px;"></div>
+
+        <div class="alert-form-grid" style="max-width: 500px; margin: 0 auto;">
+          <div style="background:var(--card2); padding:16px; border-radius:8px; margin-bottom:16px; border-left:4px solid var(--accent);">
+            <div style="font-weight:600; color:var(--accent); margin-bottom:4px;">📋 Your Financial Profile</div>
+            <div style="font-size:12px; color:var(--muted);">Complete your investment profile for accurate
+              recommendations</div>
+          </div>
+          <div class="alert-form-group">
+            <label class="alert-form-label">Investment Budget (₹)</label>
+            <input class="alert-form-input" type="number" id="advBudget" placeholder="e.g. 50000" min="500">
+          </div>
+          <div class="alert-form-group">
+            <label class="alert-form-label">Risk Tolerance Level</label>
+            <select class="alert-form-select" id="advRisk">
+              <option value="low">🛡️ Low Risk (Capital preservation, 5-10% return)</option>
+              <option value="medium" selected>⚖️ Medium Risk (Balanced, 12-20% return)</option>
+              <option value="high">🚀 High Risk (Aggressive growth, 18-30% return)</option>
+            </select>
+          </div>
+          <div class="alert-form-group">
+            <label class="alert-form-label">Investment Goal</label>
+            <select class="alert-form-select" id="advGoal">
+              <option value="preservation">🏛️ Capital Preservation (Safety first)</option>
+              <option value="income">💰 Income Generation (Regular returns)</option>
+              <option value="balanced" selected>⚖️ Balanced Growth (Mix of growth & safety)</option>
+              <option value="growth">🚀 Maximum Growth (Long-term wealth building)</option>
+            </select>
+          </div>
+          <div class="alert-form-group">
+            <label class="alert-form-label">Investment Time Horizon (Years)</label>
+            <select class="alert-form-select" id="advTimeHorizon">
+              <option value="1">1 Year (Short-term)</option>
+              <option value="3">3 Years</option>
+              <option value="5" selected>5 Years (Medium-term)</option>
+              <option value="10">10 Years</option>
+              <option value="20">20+ Years (Long-term)</option>
+            </select>
+          </div>
+          <button class="add-alert-btn" style="margin-top: 16px; width:100%;" onclick="runAnalysis()">🔍 Analyze & Get
+            Recommendations</button>
+        </div>
+      </div>
+
+      <div class="advisor-step" id="advisor-step-4">
+        <div id="analysisResult">
+        </div>
+        <button class="reset-btn" style="margin-top: 20px; width: 100%;" onclick="resetAdvisor()">Start New
+          Analysis</button>
+      </div>
+    </div>
+
+    <div class="advisor-footer" id="advisorFooter">
+      <button class="btn-nav" id="btn-adv-prev" style="visibility: hidden;" onclick="prevAdvStep()">←
+        Back</button>
+      <button class="save-btn" id="btn-adv-next" disabled onclick="nextAdvStep()">Next → Choose Company</button>
+    </div>
+  </div>
+</div>

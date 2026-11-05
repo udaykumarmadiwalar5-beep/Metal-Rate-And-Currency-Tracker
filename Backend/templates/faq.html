@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetalTracker | FAQ</title>
+    <!-- Modern Typography 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    -->
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary-light: #1e293b;
+            --accent-gold: #d4af37;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6%;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--card-border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span {
+            color: var(--accent-gold);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        .faq-section {
+            padding: 120px 6% 80px;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 80vh;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .faq-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .faq-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .faq-item {
+            background: var(--primary-light);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 24px;
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .faq-answer {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        footer {
+            background: #090e1a;
+            padding: 40px 6%;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/" class="nav-logo">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#d4af37" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            Metal<span>Tracker</span>
+        </a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a style="color:var(--accent-gold); border:1px solid var(--accent-gold); padding:8px 20px; border-radius:4px"
+                    href="login.html">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <section class="faq-section">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about MetalTracker, live prices, and our Investment Advisor.</p>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What is MetalTracker and what can I do here?</div>
+            <div class="faq-answer">MetalTracker is a dashboard for tracking Gold, Silver, and Platinum market movements.
+                You can view current prices, historical charts, set personal price alerts, and use the Investment Advisor
+                to explore NSE/BSE company recommendations aligned with your investment goals.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How do I register and log in?</div>
+            <div class="faq-answer">Open the Register page and enter a valid email, username, and password. After
+                registering, use those credentials on the Login page to access your dashboard and saved alerts.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Do I need an account to use the full system?</div>
+            <div class="faq-answer">No, you can browse the public dashboard and FAQ without logging in. But to create
+                alerts, save your preferences, or use the Investment Advisor tools, you must register and log in.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How accurate are the metal prices on the dashboard?</div>
+            <div class="faq-answer">Prices are based on the latest stored data in the system. The dashboard shows
+                refreshed market rates and provides charts for recent trends, but actual market conditions may still vary.
+                Use this tool for comparison and tracking, not as a trading execution feed.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How do the historical charts work?</div>
+            <div class="faq-answer">The chart section displays historical price data for the selected metal and timeframe.
+                You can switch between single-metal views and the combined All Metals view to compare performance over
+                different periods.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What is the Investment Advisor feature?</div>
+            <div class="faq-answer">The Investment Advisor helps you discover relevant NSE/BSE companies and SIP plans
+                based on your budget, risk profile, and investment interest. It’s designed to guide you through stock
+                ideas tied to the metals market and broader opportunities.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How do alerts work?</div>
+            <div class="faq-answer">Once logged in, set a target price for Gold, Silver, or Platinum in the Alerts section.
+                The system stores your alert and tracks it automatically. When the current price reaches the condition you
+                selected, the alert status changes from "Watching" to "Triggered".</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How can I tell if my alert has been triggered?</div>
+            <div class="faq-answer">Visit the Alerts dashboard after logging in. Each alert shows a clear status label and
+                the current metal price. Triggered alerts are marked as "Triggered," while open targets remain labeled
+                "Watching."</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Will I receive email notifications when an alert triggers?</div>
+            <div class="faq-answer">Not yet. The current system updates alert status within the dashboard only. Email
+                notification support is planned for a future release to enhance professional alert delivery.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Can I set alerts for multiple metals?</div>
+            <div class="faq-answer">Yes. You can create separate alerts for Gold, Silver, and Platinum. Each alert is
+                tracked independently and shown in your personal alert list.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How do I manage my dashboard preferences?</div>
+            <div class="faq-answer">After logging in, use the Preferences page to adjust your theme, investment goals,
+                budget, and preferred risk settings. These preferences help personalize recommendations and dashboard display.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Is my account data safe?</div>
+            <div class="faq-answer">Yes. Your registration details are used only to authenticate you and save your
+                dashboard settings. The system does not share your password or personal alert targets with third parties.</div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-text">&copy; 2026 MetalTracker. All accurate market data is subject to volatility.</div>
+    </footer>
+</body>
+
+</html>
